@@ -1,0 +1,142 @@
+html * {
+    font-family: sans-serif;
+    font-size: 30px;
+    color: white;
+}
+
+body {
+    margin: 10px;
+}
+
+main {
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    grid-template-areas: 
+    "header header      header          header"
+    "display display    display         display"
+    "clear  leftParen   rightParen      divide"
+    "seven  eight       nine            mult"
+    "four   five        six             minus"
+    "one    two         three           add"
+    "z      per         enter            enter";
+    grid-template-columns: repeat(4, minmax(min-content, 120px));
+    grid-template-rows: repeat(7, minmax(max-content, 120px));
+    gap: 5px;
+    height: calc(100vh - 20px);
+    width: calc(100vw - 20px);
+    /* border: 1px solid black; */
+}
+div {
+    box-sizing: border-box;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.child {
+    border-bottom: 1px solid lightpink;
+    background-color: indianred;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 80px;
+    min-height: 80px;
+    justify-content: center;
+    place-items: center;
+    padding: 5px;
+}
+
+#header {
+    grid-area: header;
+}
+
+#display {
+    grid-area: display;
+    justify-content: right;
+    animation: blinker .6s step-end infinite;
+    font-size: 60px;
+}
+
+#clear {
+    grid-area: clear;
+}
+
+#one {
+    grid-area: one;
+}
+
+#two {
+    grid-area: two;
+}
+
+#three {
+    grid-area: three;
+}
+
+#four {
+    grid-area: four;
+}
+
+#five {
+    grid-area: five;
+}
+
+#six {
+    grid-area: six;
+}
+
+#seven {
+    grid-area: seven;
+}
+
+#eight {
+    grid-area: eight;
+}
+
+#nine {
+    grid-area: nine;
+}
+
+#zero {
+    grid-area: z;
+}
+
+#dot {
+    grid-area: per;
+}
+
+#leftParen {
+    grid-area: leftParen;
+}
+
+#rightParen {
+    grid-area: rightParen;
+}
+
+#divide {
+    grid-area: divide;
+}
+
+#mult {
+    grid-area: mult;
+}
+
+#minus {
+    grid-area: minus;
+}
+
+#add {
+    grid-area: add;
+}
+
+#enter {
+    grid-area: enter;
+}
+
+#wild { grid-area: wild;}
+
+@keyframes blinker {
+    50% {
+        color: indianred;
+    }
+}
