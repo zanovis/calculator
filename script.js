@@ -11,10 +11,11 @@ let originalDisplay = display.textContent;
 let displayText = "";
 let currentNum = '';
 let current;
-let enteredSym = "";
+let enteredString = "";
 let operator = '';
-let previousSym; 
-let firstNum = '';
+let firstNum = 0;
+let result = 0;
+let prev;
 
 const add = (a, b) => {
   return a + b;
@@ -33,41 +34,48 @@ const divide = (a, b) => {
 };
 
 const input = (element) => {
-  previousSym = current;
-  current = element.target.textContent;  
-  const operators = [current == "+", current == "x", current == "-", current == "/"];
+  current = element.target.textContent;
+  const operators = ["+", "x", "-", "/"];
   if (current == "CLEAR") {
+    // Clear button actions
     clear();
-  } else if (operators.includes(true)) {
+  } else if (operators.includes(current)) {
+    // Operator button actions
     operator = current;
-    updateDisplay(current);
-    console.log(current);
-
-  } else if (current== "=") {
+    operate(operator, parseInt(firstNum), parseInt(currentNum))
+    firstNum = currentNum;
+    if (display.textContent.length > 2) { firstNum = result; }
+    currentNum = '';
+  } else if (current == "=") {
+    // Equate button actions
     operate(operator, parseInt(firstNum), parseInt(currentNum));
+    firstNum = result;
+    currentNum = 0;
+    currentNum = result;
   } else {
-    previousSym = parseInt(currentNum);
-    if (typeof(previousSym) == 'number') {
-      firstNum = firstNum + currentNum ;
-    } else {
-      firstNum = ''
-    }
-    currentNum = current;
-    updateDisplay(currentNum);
-    console.log(`this is previoussym ${typeof(previousSym)}`) 
-    console.log(`firstNum is ${firstNum}`);
-    console.log(`currentNum is ${currentNum}`);
+    // Numeric button actions
+    currentNum = currentNum + current;
 
-    
-  }    
 
+  }
+  prev = current;
+  updateDisplay(current, currentNum);
+  console.log(`CURRENT is ${current}`);
+  console.log(`firstNum is ${firstNum}`);
+  console.log(`currentNum is ${currentNum}`);  
+  console.log(`result is ${result}`);  
   return current;
 };
 
-const updateDisplay = (current) => {
+const updateDisplay = (current, currentNum) => {
   display.style.animation = "none";
-  display.textContent = enteredSym + current;
-  enteredSym = display.textContent;
+  enteredString = enteredString + current;
+  if (current == "=") {
+    display.textContent = result;
+    enteredString = result;
+  } else {
+    display.textContent = enteredString;
+  }
 };
 
 const operate = (operator, a, b) => {
@@ -80,19 +88,18 @@ const operate = (operator, a, b) => {
   } else if (operator == "/") {
     result = divide(a, b);
   }
-  clear();
-  updateDisplay(result);
-  currentNum = result;
-  return currentNum;
+  return result;
 };
 
 const clear = () => {
-  display.style.animation = "";
+  display.style.animation = '';
   display.textContent = originalDisplay;
   displayText = originalDisplay;
-  enteredSym = "";
+  enteredString = '';
   currentNum = '';
-  firstNum = '';
+  firstNum = 0;
+  result = 0;
+  current = '';
 };
 
 display.addEventListener("click", updateDisplay);
