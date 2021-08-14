@@ -15,7 +15,7 @@ main {
     grid-template-areas: 
     "header header      header          header"
     "display display    display         display"
-    "clear  leftParen   rightParen      divide"
+    "clear  delete      delete          divide"
     "seven  eight       nine            mult"
     "four   five        six             minus"
     "one    two         three           add"
@@ -105,13 +105,10 @@ div {
     grid-area: per;
 }
 
-#leftParen {
-    grid-area: leftParen;
+#delete {
+    grid-area: delete;
 }
 
-#rightParen {
-    grid-area: rightParen;
-}
 
 #divide {
     grid-area: divide;

@@ -1,6 +1,7 @@
 // Get elements
 const display = document.getElementById("display");
 const clearBtn = document.getElementById("clear");
+const delBtn = document.getElementById("delete");
 const key = Array.prototype.slice.call(
   document.getElementsByClassName("child")
 );
@@ -33,12 +34,12 @@ const divide = (a, b) => {
   return a / b;
 };
 
-// 1. START FRESH IF ENTERING NUM AFTER CLICKING ENTER
-// 2. PREVENT MULTIPLE OPERATORS BEING ENTERED CONSECUTIVELY
-// 3. ROUND FLOATS
-// 4. ADD MESSAGE ABOUT DIV BY ZERO
-// 5. BACKSPACE BUTTON
-// 6. ADD KEYBOARD CAPABILITY
+// 1. START FRESH IF ENTERING NUM AFTER CLICKING ENTER          - done
+// 2. PREVENT MULTIPLE OPERATORS BEING ENTERED CONSECUTIVELY    - 
+// 3. ROUND FLOATS                                              - 
+// 4. ADD MESSAGE ABOUT DIV BY ZERO                             - done
+// 5. BACKSPACE BUTTON                                          - done, with bugs
+// 6. ADD KEYBOARD CAPABILITY                                   -
 
 const input = (element) => {
   current = element.target.textContent;
@@ -46,29 +47,38 @@ const input = (element) => {
   if (current == "CLEAR") {
     // Clear button actions
     clear();
-  } else if (operators.includes(current) && typeof(prev) == 'string') {
+  } else if (operators.includes(current) && prev != '=') {
+    console.log('test1')
     // Operator button actions
-    operate(operator, parseFloat(firstNum), parseFloat(currentNum));
     operator = current;
+    operate(operator, parseFloat(firstNum), parseFloat(currentNum));
     firstNum = currentNum;
     currentNum = '';
   } else if (current == "=") {
     // Equate button actions
     operate(operator, parseFloat(firstNum), parseFloat(currentNum));
     firstNum = result;
-    currentNum = 0;
-    currentNum = result;
+  } else if (current == "DELETE") {
+    del();
   } else {
     // Numeric button actions
+    // if (prev == "=" && operators.includes(current) ) {
+    //   currentNum = current;
+    // } else {
+    //   firstNum = currentNum;
+    //   currentNum = currentNum + current;
+    // }
     currentNum = currentNum + current;
-    
+    result = currentNum;
+
   }
+  updateDisplay(current, currentNum, operators)
   prev = current;
-  updateDisplay(current, currentNum, operators);
   console.log(`CURRENT is ${current}`);
   console.log(`firstNum is ${firstNum}`);
   console.log(`currentNum is ${currentNum}`);  
   console.log(`result is ${result}`);  
+  console.log(`entered str is ${enteredString}`);  
   return current;
 };
 
@@ -77,10 +87,11 @@ const updateDisplay = (current, currentNum, operators) => {
   enteredString = enteredString + current;
   if (current == "=") {
     display.textContent = result;
-    enteredString = result;
+    enteredString = '';
   } else if (operators.includes(current)) {
-    enteredString = firstNum + current;
     display.textContent = enteredString;
+  } else if (current = 'DELETE') {
+    display.textContent = currentNum;
   } else {
     display.textContent = enteredString;
   }
@@ -95,33 +106,43 @@ const operate = (operator, a, b) => {
     } else if (operator == "x") {
       result = multiply(a, b);
     } else if (operator == "/") {
+      b == 0 ? alert('This is why we can\'t have nice things...') : false;
       result = divide(a, b);
     }    
-  } else {
+  parseFloat(result)
+  console.log(typeof(result)) 
+  // result = result.toFixed(2).replace(/\.0/,'')
+} else {
     result = currentNum;
-  } 
+  }
 
-  // add floating point rounding
-  // result.toFixed(2); 
   return result;
 };
 
 const clear = () => {
   display.style.animation = '';
   display.textContent = originalDisplay;
-  displayText = originalDisplay;
+  displayText = '';
   enteredString = '';
   currentNum = '';
   firstNum = '';
   result = 0;
   current = '';
+  prev = '';
 };
+
+const del = () => {
+  console.log('test')
+  firstNum = currentNum; 
+  currentNum = currentNum.substring(0, currentNum.length - 1);
+  result = currentNum;
+}
 
 display.addEventListener("click", updateDisplay);
 key.forEach((element) => {
-  console.log(element);
   element.addEventListener("click", input);
 });
 clearBtn.addEventListener("click", clear);
+delBtn.addEventListener("click", del);
 
 enterBtn.addEventListener("click", operate);
