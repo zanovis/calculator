@@ -60,7 +60,7 @@ main {
 		'one    two         three           add'
 		'z      decimal     enter           enter';
 	grid-template-columns: repeat(4, minmax(min-content, 120px));
-	grid-template-rows: repeat(7, minmax(max-content, 130px));
+	grid-template-rows: repeat(7, minmax(max-content, 120px));
 	gap: 10px;
 	min-height: calc(100vh - 80px);
 	padding: 8px;
