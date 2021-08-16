@@ -1,14 +1,37 @@
+.Minimal-professional-1-hex {
+	color: #2b3a42;
+}
+.Minimal-professional-2-hex {
+	color: #3f5866;
+}
+.Minimal-professional-3-hex {
+	color: #bdd3de;
+}
+.Minimal-professional-4-hex {
+	color: #f0f0df;
+}
+.Minimal-professional-5-hex {
+	color: #ffd938;
+}
+
 html * {
 	font-family: sans-serif;
-	font-size: 30px;
-	color: white;
+	font-size: 20px;
+	color: #3f5866;
+	background-color: #2b3a42;
 }
 
 body {
-	margin: 10px;
+	margin: 0px;
 }
 
 main {
+	display: flex;
+	place-content: center;
+	width: calc(100vw);
+}
+
+.container {
 	display: grid;
 	place-items: center;
 	justify-content: center;
@@ -22,32 +45,38 @@ main {
 		'z      decimal     enter           enter';
 	grid-template-columns: repeat(4, minmax(min-content, 120px));
 	grid-template-rows: repeat(7, minmax(max-content, 120px));
-	gap: 5px;
+	gap: 10px;
 	height: calc(100vh - 20px);
-	width: calc(100vw - 20px);
-	/* border: 1px solid black; */
-}
-div {
-	box-sizing: border-box;
-	padding: 0px;
-	overflow: hidden;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #3f5866;
+	filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
+		drop-shadow(0 1px 5px rgba(0, 0, 0, 0.14))
+		drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12))
+		drop-shadow(0 -1px 3px rgba(0, 0, 0, 0.1));
 }
 
 .child {
-	border-bottom: 1px solid lightpink;
-	background-color: indianred;
+	box-sizing: border-box;
 	display: flex;
 	width: 100%;
 	height: 100%;
-	min-width: 80px;
-	min-height: 80px;
+	min-width: 70px;
+	min-height: 70px;
 	justify-content: center;
 	place-items: center;
-	padding: 5px;
+	filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
+		drop-shadow(0 1px 5px rgba(0, 0, 0, 0.14))
+		drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12))
+		drop-shadow(0 -1px 3px rgba(0, 0, 0, 0.1));
+	border-radius: 10px;
+	border: 0px;
 }
 
 #header {
 	grid-area: header;
+	background-color: #bdd3de;
+	font-size: 30px;
 }
 
 #display {
@@ -55,10 +84,28 @@ div {
 	justify-content: right;
 	animation: blinker 0.6s step-end infinite;
 	font-size: 60px;
+	padding-right: 30px;
+	background-color: #f0f0df;
 }
 
 #clear {
 	grid-area: clear;
+	background-color: indianred;
+	color: #f0f0df;
+}
+
+#delete {
+	grid-area: delete;
+	background-color: indianred;
+	color: #f0f0df;
+}
+
+[data-number] {
+	background-color: #f0f0df;
+}
+
+[data-operator] {
+	background-color: #bdd3de;
 }
 
 #one {
@@ -101,12 +148,9 @@ div {
 	grid-area: z;
 }
 
-#dot {
+#decimal {
 	grid-area: decimal;
-}
-
-#delete {
-	grid-area: delete;
+	background-color: #f0f0df;
 }
 
 #divide {
@@ -127,6 +171,7 @@ div {
 
 #enter {
 	grid-area: enter;
+	background-color: #ffd938;
 }
 
 #wild {
@@ -135,6 +180,6 @@ div {
 
 @keyframes blinker {
 	50% {
-		color: indianred;
+		color: #f0f0df;
 	}
 }
